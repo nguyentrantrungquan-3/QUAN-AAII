@@ -15,7 +15,7 @@ jobs:
           name: Install Packages
           command: |-
             npm i -s
-      - run: node app.js
+      - run: node app.js docker
       
 workflows:
   start-work:
